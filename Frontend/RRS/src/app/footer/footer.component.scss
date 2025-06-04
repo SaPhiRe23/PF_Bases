@@ -24,3 +24,11 @@
     }
   }
 }
+
+@media (max-width: 600px) {
+  .social {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+

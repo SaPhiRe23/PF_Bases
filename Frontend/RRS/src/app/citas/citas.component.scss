@@ -38,3 +38,14 @@
     }
   }
 }
+
+@media (max-width: 480px) {
+  .formulario-cita {
+    padding: 0 1rem;
+  }
+
+  button {
+    width: 100%;
+    align-self: stretch;
+  }
+}
