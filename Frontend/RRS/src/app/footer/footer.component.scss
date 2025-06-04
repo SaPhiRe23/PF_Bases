@@ -1,34 +1,16 @@
 .footer {
   background-color: #1f1f1f;
-  color: white;
-  padding: 2rem 1rem;
+  color: #222;
+  padding: 2rem 0;
   text-align: center;
+  font-size: 0.9rem;
 
-  p {
-    margin-bottom: 1rem;
-  }
+  a {
+    text-decoration: none;
 
-  .social {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-
-    a {
-      color: white;
-      font-weight: 500;
-      transition: color 0.2s;
-
-      &:hover {
-        color: #eab308;
-      }
+    &:hover {
+      text-decoration: underline;
     }
-  }
-}
-
-@media (max-width: 600px) {
-  .social {
-    flex-direction: column;
-    gap: 0.5rem;
   }
 }
 

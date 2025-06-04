@@ -1,6 +1,4 @@
 .header {
-  background-color: #1f1f1f;
-  color: white;
   padding: 1rem 0;
 
   .container {
@@ -10,43 +8,37 @@
   }
 
   .logo {
-    font-size: 1.5rem;
     font-weight: bold;
-    letter-spacing: 1px;
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
   }
 
-  .nav {
+  .nav-links {
     display: flex;
-    gap: 1.5rem;
+    align-items: center;
+    gap: 16px; // 👈 esto separa los enlaces
+  }
 
-    a {
-      color: white;
-      font-weight: 500;
-      text-transform: uppercase;
-      transition: color 0.2s;
+  .nav-link {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
 
-      &:hover,
-      &.activo {
-        color: #eab308;
-      }
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .logout-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
     }
   }
 }
-
-@media (max-width: 768px) {
-  .nav {
-    flex-direction: column;
-    gap: 0.5rem;
-    align-items: flex-start;
-  }
-
-  .container {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .logo {
-    margin-bottom: 1rem;
-  }
-}
-
