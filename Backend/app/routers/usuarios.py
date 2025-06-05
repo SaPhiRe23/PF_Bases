@@ -1,6 +1,10 @@
 from fastapi import APIRouter, Query
 from typing import Optional
 from app.database import get_connection
+from app.models.usuarios import UsuarioEntrada
+from fastapi import HTTPException
+from app.models.usuarios import UsuarioEntrada
+
 
 router = APIRouter(prefix="/usuarios", tags=["Usuarios"])
 
@@ -39,3 +43,21 @@ def obtener_usuarios(
     conn.close()
 
     return [{"id": r[0], "nombre": r[1], "email": r[2], "telefono": r[3]} for r in rows]
+
+@router.post("/")
+def crear_usuario(usuario: UsuarioEntrada):
+    if usuario.contrasena != usuario.confirmar_contrasena:
+        raise HTTPException(status_code=400, detail="Las contraseñas no coinciden")
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    query = "INSERT INTO usuarios (nombre, email, contrasena) VALUES (?, ?, ?)"
+    values = (usuario.nombre, usuario.email, usuario.contrasena)
+
+    cursor.execute(query, values)
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+    return {"mensaje": "Usuario creado correctamente"}
