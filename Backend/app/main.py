@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from app.routers import usuarios
 from fastapi.responses import RedirectResponse
 from app.routers import citas
+from fastapi.middleware.cors import CORSMiddleware
 
 
 app = FastAPI()

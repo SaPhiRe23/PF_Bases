@@ -1,30 +1,36 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../auth/auth.service';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.scss'
+  styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
   form: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private authService: AuthService) {
     this.form = this.fb.group({
-      name: ['', Validators.required],
+      nombre: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      contrasena: ['', Validators.required],
+      confirmar_contrasena: ['', Validators.required]
     });
   }
 
   onSubmit() {
     if (this.form.valid) {
-      console.log('Usuario registrado:', this.form.value); // Aquí llamarías a tu servicio
-      this.router.navigate(['/login']);
+      this.authService.register(this.form.value).subscribe({
+        next: () => alert('Usuario registrado correctamente'),
+        error: err => alert(err.error.detail || 'Error al registrar usuario')
+      });
     }
   }
 }
