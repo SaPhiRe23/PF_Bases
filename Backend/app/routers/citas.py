@@ -8,16 +8,12 @@ router = APIRouter(prefix="/citas", tags=["Citas"])
 def crear_cita(cita: CitaEntrada):
     conn = get_connection()
     cursor = conn.cursor()
-
-    query = """
-    INSERT INTO citas (usuario_id, empleado_id, servicio_id, fecha_hora)
-    VALUES (?, ?, ?, ?)
-    """
-    values = (cita.usuario_id, cita.empleado_id, cita.servicio_id, cita.fecha_hora)
-
-    cursor.execute(query, values)
+    cursor.execute(
+        "INSERT INTO citas (usuario_id, empleado_id, servicio_id, fecha_hora) VALUES (?, ?, ?, ?)",
+        (cita.usuario_id, cita.empleado_id, cita.servicio_id, cita.fecha_hora)
+    )
     conn.commit()
     cursor.close()
     conn.close()
+    return {"mensaje": "Cita registrada exitosamente"}
 
-    return {"mensaje": "Cita creada exitosamente"}
