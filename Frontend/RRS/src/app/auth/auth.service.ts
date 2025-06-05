@@ -1,34 +1,52 @@
-import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private _isAuthenticated = false;
+  private API_URL = 'http://localhost:8000';
+  private authState = new BehaviorSubject<boolean>(!!localStorage.getItem('token'));
+  isAuthenticated$ = this.authState.asObservable();
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {} // Inyecta PLATFORM_ID
+  constructor(private http: HttpClient, private router: Router) {}
 
-  private safeLocalStorage(): Storage | null {
-    return isPlatformBrowser(this.platformId) ? localStorage : null;
+  storeSession(token: string, role: string) {
+    localStorage.setItem('token', token);
+    localStorage.setItem('role', role);
+    this.authState.next(true);
   }
 
-  login(email: string, password: string): boolean {
-    if (email === 'admin@empresa.com' && password === '123456') {
-      this._isAuthenticated = true;
-      this.safeLocalStorage()?.setItem('auth', 'true'); // Uso seguro
-      return true;
-    }
-    return false;
-  }
-
-  logout(): void {
-    this._isAuthenticated = false;
-    this.safeLocalStorage()?.removeItem('auth'); // Uso seguro
+  logout() {
+    localStorage.clear();
+    this.authState.next(false);
+    this.router.navigate(['/login']);
   }
 
   isAuthenticated(): boolean {
-    if (isPlatformBrowser(this.platformId)) {
-      return this._isAuthenticated || this.safeLocalStorage()?.getItem('auth') === 'true';
-    }
-    return this._isAuthenticated; // Fallback para SSR
+    return !!localStorage.getItem('token');
   }
+
+  // Usuarios
+  crearUsuario(data: any) {
+    return this.http.post(`${this.API_URL}/usuarios/`, data);
+  }
+
+  obtenerUsuarios(params?: any) {
+    return this.http.get(`${this.API_URL}/usuarios/`, { params });
+  }
+
+  // Citas
+  crearCita(data: any) {
+    return this.http.post(`${this.API_URL}/citas/`, data);
+  }
+
+  login(email: string, password: string) {
+    return this.http.post(`${this.API_URL}/login`, { email, password });
+  }
+
+  getUserRole(): string | null {
+    return localStorage.getItem('role');
+  }
+
 }

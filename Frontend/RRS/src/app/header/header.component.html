@@ -3,9 +3,9 @@
     <a routerLink="/home" class="logo">RRS</a>
 
     <nav class="nav-links">
-      <a *ngIf="!isAuthenticated()" routerLink="/login" class="nav-link">Login</a>
-      <a *ngIf="!isAuthenticated()" routerLink="/register" class="nav-link">Registro</a>
-      <button *ngIf="isAuthenticated()" (click)="logout()" class="logout-btn">Cerrar sesión</button>
+      <a *ngIf="!(authService.isAuthenticated$ | async)" routerLink="/login" class="nav-link">Login</a>
+      <a *ngIf="!(authService.isAuthenticated$ | async)" routerLink="/register" class="nav-link">Registro</a>
+      <button *ngIf="authService.isAuthenticated$ | async" (click)="logout()" class="logout-btn">Cerrar sesión</button>
     </nav>
   </div>
 </header>
