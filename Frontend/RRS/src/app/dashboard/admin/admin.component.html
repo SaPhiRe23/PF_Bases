@@ -1,0 +1,30 @@
+<div class="user-table-gadget">
+    <h2>Usuarios</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users">
+                <td>{{ user.id }}</td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.email }}</td>
+                <td>
+                    <button (click)="deleteUser(user.id)">Eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Añadir Usuario</h3>
+    <form (ngSubmit)="addUser()" #userForm="ngForm">
+        <input type="text" placeholder="Nombre" [(ngModel)]="newUser.name" name="name" required>
+        <input type="email" placeholder="Email" [(ngModel)]="newUser.email" name="email" required>
+        <button type="submit" [disabled]="!userForm.form.valid">Añadir</button>
+    </form>
+</div>

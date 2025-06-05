@@ -5,7 +5,6 @@
     <nav class="nav-links">
       <a *ngIf="!isAuthenticated()" routerLink="/login" class="nav-link">Login</a>
       <a *ngIf="!isAuthenticated()" routerLink="/register" class="nav-link">Registro</a>
-      <a *ngIf="isAuthenticated()" routerLink="/dashboard" class="nav-link">Dashboard</a>
       <button *ngIf="isAuthenticated()" (click)="logout()" class="logout-btn">Cerrar sesión</button>
     </nav>
   </div>
