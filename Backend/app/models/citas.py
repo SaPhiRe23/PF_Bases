@@ -5,4 +5,7 @@ class CitaEntrada(BaseModel):
     usuario_id: int = Field(..., gt=0)
     empleado_id: int = Field(..., gt=0)
     servicio_id: int = Field(..., gt=0)
-    fecha_hora: datetime = Field(...)
+    fecha_hora: datetime
+
+
+
