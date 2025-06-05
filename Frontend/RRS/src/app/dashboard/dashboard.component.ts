@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard-layout',
@@ -10,21 +10,18 @@ import { CommonModule } from '@angular/common';
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent implements OnInit {
+  isBrowser: boolean;
 
-  tipoUsuario: string | null = null;
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, private router: Router) {
+    this.isBrowser = isPlatformBrowser(platformId);
+  }
 
-  constructor(private router: Router) {}
-
-  ngOnInit() {
-    const role = localStorage.getItem('role');
-
-    if (role === 'admin') {
-      this.router.navigate(['/dashboard/admin']);
-    } else if (role === 'empresa') {
-      this.router.navigate(['/dashboard/empresa']);
-    } else {
-      this.router.navigate(['/login']); // fallback por seguridad
+  ngOnInit(): void {
+    if (this.isBrowser) {
+      const rol = localStorage.getItem('role');
+      if (rol) {
+        this.router.navigate([`/dashboard/${rol}`]);
+      }
     }
   }
 }
-

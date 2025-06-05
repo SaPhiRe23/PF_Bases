@@ -30,7 +30,8 @@ export class LoginComponent {
       this.authService.login(email, password).subscribe({
         next: user => {
           alert('Login exitoso');
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/dashboard', user.rol]); // ejemplo: 'admin' o 'empresa'
+
         },
         error: err => {
           alert(err.detail || 'Credenciales inválidas');

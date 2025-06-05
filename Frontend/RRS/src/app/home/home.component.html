@@ -3,8 +3,11 @@
     <h1>Tu plataforma para agendamiento inteligente</h1>
     <p>Automatiza las citas de tus clientes. Ahorra tiempo. Incrementa tu productividad.</p>
     <a routerLink="/register" class="btn btn-primario">Empieza gratis</a>
+    <br />
+    <a routerLink="/citas" class="btn btn-secundario">¿Eres cliente? Agenda tu cita con tu empresa aquí</a>
   </div>
 </section>
+
 
 <section class="sectores">
   <div class="container">
@@ -18,33 +21,93 @@
   </div>
 </section>
 
-<section class="beneficios">
+<section class="beneficios mejorado">
   <div class="container">
     <h2>¿Por qué usar nuestra plataforma?</h2>
-    <ul>
-      <li>✅ Agenda automática 24/7</li>
-      <li>✅ Recordatorios por correo y WhatsApp</li>
-      <li>✅ Administración multiusuario</li>
-      <li>✅ Reportes e historial de citas</li>
-    </ul>
+    <div class="beneficios-grid">
+      <div class="beneficio-card">
+        <div class="icono">🕒</div>
+        <h3>Agenda automática 24/7</h3>
+        <p>Tus clientes pueden reservar en cualquier momento, incluso fuera del horario laboral.</p>
+      </div>
+      <div class="beneficio-card">
+        <div class="icono">📩</div>
+        <h3>Recordatorios inteligentes</h3>
+        <p>Evita ausencias con notificaciones automáticas por correo y WhatsApp.</p>
+      </div>
+      <div class="beneficio-card">
+        <div class="icono">👥</div>
+        <h3>Multiusuario</h3>
+        <p>Gestiona tu equipo con roles personalizados y acceso compartido.</p>
+      </div>
+      <div class="beneficio-card">
+        <div class="icono">📊</div>
+        <h3>Reportes en tiempo real</h3>
+        <p>Consulta el historial de citas, estadísticas y métricas clave de tu negocio.</p>
+      </div>
+    </div>
   </div>
 </section>
+
 
 <section class="funcionamiento">
   <div class="container">
-    <h2>¿Cómo funciona?</h2>
-    <ol>
-      <li>Regístrate y crea tu cuenta</li>
-      <li>Configura tu calendario y servicios</li>
-      <li>Comparte tu enlace con tus clientes</li>
-      <li>¡Listo! Empiezan a agendar contigo</li>
-    </ol>
+    <h2 class="titulo-seccion">¿Cómo funciona nuestra plataforma?</h2>
+    <p class="subtitulo">En solo 4 sencillos pasos podrás comenzar a gestionar tus citas automáticamente</p>
+    
+    <div class="pasos-container">
+      <!-- Paso 1 -->
+      <div class="paso-card">
+        <div class="paso-numero">1</div>
+        <div class="paso-contenido">
+          <h3>Registro rápido</h3>
+          <p>Crea tu cuenta en menos de 2 minutos con tu correo electrónico</p>
+          <div class="paso-icono">
+            <svg><!-- Icono de registro --></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Paso 2 -->
+      <div class="paso-card">
+        <div class="paso-numero">2</div>
+        <div class="paso-contenido">
+          <h3>Configuración personalizada</h3>
+          <p>Define tus servicios, horarios disponibles y políticas de cancelación</p>
+          <div class="paso-icono">
+            <svg><!-- Icono de configuración --></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Paso 3 -->
+      <div class="paso-card">
+        <div class="paso-numero">3</div>
+        <div class="paso-contenido">
+          <h3>Comparte tu enlace</h3>
+          <p>Envía tu enlace personalizado a clientes o intégralo en tu web</p>
+          <div class="paso-icono">
+            <svg><!-- Icono de compartir --></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Paso 4 -->
+      <div class="paso-card">
+        <div class="paso-numero">4</div>
+        <div class="paso-contenido">
+          <h3>Gestiona tus citas</h3>
+          <p>Recibe reservas, envía recordatorios automáticos y organiza tu agenda</p>
+          <div class="paso-icono">
+            <svg><!-- Icono de calendario --></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-pasos">
+      <a routerLink="/register" class="btn btn-primario btn-grande">Comienza ahora</a>
+    </div>
   </div>
 </section>
 
-<section class="cta-final">
-  <div class="container">
-    <h2>Transforma tu forma de trabajar</h2>
-    <a routerLink="/registro" class="btn btn-primario">Regístrate ahora</a>
-  </div>
-</section>

@@ -101,3 +101,158 @@
     align-items: center;
   }
 }
+
+.funcionamiento {
+  background-color: #f9fafb;
+  padding: 5rem 0;
+  text-align: center;
+
+  .titulo-seccion {
+    font-size: 2.5rem;
+    color: #2d3748;
+    margin-bottom: 1rem;
+  }
+
+  .subtitulo {
+    font-size: 1.25rem;
+    color: #4a5568;
+    max-width: 600px;
+    margin: 0 auto 3rem;
+  }
+
+  .pasos-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto 3rem;
+  }
+
+  .paso-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  .paso-numero {
+    width: 50px;
+    height: 50px;
+    background: #4f46e5;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0 auto 1.5rem;
+  }
+
+  .paso-contenido {
+    h3 {
+      font-size: 1.5rem;
+      color: #2d3748;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      color: #4a5568;
+      line-height: 1.6;
+    }
+  }
+
+  .paso-icono {
+    margin-top: 1.5rem;
+    svg {
+      width: 50px;
+      height: 50px;
+      fill: #4f46e5;
+    }
+  }
+
+  .cta-pasos {
+    margin-top: 3rem;
+    
+    .btn-grande {
+      padding: 1rem 2rem;
+      font-size: 1.25rem;
+    }
+  }
+
+  .texto-pequeno {
+    margin-top: 1rem;
+    color: #718096;
+    font-size: 0.875rem;
+  }
+}
+
+.beneficios.mejorado {
+  background-color: #f9fafb;
+
+  .beneficios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 2rem auto 0;
+  }
+
+  .beneficio-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .icono {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #4f46e5;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+      color: #2d3748;
+    }
+
+    p {
+      color: #4a5568;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+  }
+}
+.btn-secundario {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.75rem 2rem;
+  border-radius: 0.5rem;
+  background-color: transparent;
+  color: #facc15;
+  border: 2px solid #facc15;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: #facc15;
+    color: #1f1f1f;
+  }
+}
+

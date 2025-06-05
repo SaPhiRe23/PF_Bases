@@ -1,1 +1,32 @@
-<p>empresa works!</p>
+<div class="empresa-dashboard">
+  <div class="card citas-gadget">
+    <h2 class="card-title">Citas Agendadas</h2>
+
+    <table class="citas-table" *ngIf="citas.length > 0; else sinCitas">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Cliente</th>
+          <th>Fecha</th>
+          <th>Hora</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cita of citas">
+          <td>{{ cita.id }}</td>
+          <td>{{ cita.nombre_cliente }}</td>
+          <td>{{ cita.fecha }}</td>
+          <td>{{ cita.hora }}</td>
+          <td>
+            <button class="btn-danger" (click)="eliminarCita(cita.id)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <ng-template #sinCitas>
+      <p>No hay citas agendadas por el momento.</p>
+    </ng-template>
+  </div>
+</div>
