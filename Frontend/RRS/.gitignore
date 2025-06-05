@@ -40,3 +40,12 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# En tu archivo .gitignore (en la raíz del proyecto)
+echo "__pycache__/" >> .gitignore
+echo "*.pyc" >> .gitignore
+
+# Si quieres ignorar estos patrones globalmente para todos tus proyectos:
+git config --global core.excludesfile ~/.gitignore_global
+echo "__pycache__/" >> ~/.gitignore_global
+echo "*.pyc" >> ~/.gitignore_global
