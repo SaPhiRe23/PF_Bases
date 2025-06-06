@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from app.routers import servicios
 from app.routers import usuarios
 from fastapi.responses import RedirectResponse
 from app.routers import citas
@@ -19,6 +20,7 @@ app.add_middleware(
 # Incluir los endpoints de usuarios
 app.include_router(usuarios.router)
 app.include_router(citas.router)
+app.include_router(servicios.router)
 
 
 @app.get("/", include_in_schema=False)

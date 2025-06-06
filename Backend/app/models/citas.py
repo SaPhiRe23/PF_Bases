@@ -3,11 +3,17 @@ from datetime import date, time, datetime
 from typing import Optional
 
 class CitaEntrada(BaseModel):
-    nombre: str = Field(..., min_length=1, max_length=100, description="Nombre del cliente")
-    servicio: str = Field(..., description="Nombre o ID del servicio")
-    fecha: str = Field(..., description="Fecha en formato DD-MM-YYYY")
-    hora: str = Field(..., description="Hora en formato HH:MM AM/PM (ej. 02:30 PM)")
-    notas: Optional[str] = Field(default=None, max_length=500, description="Notas adicionales")
+    empresa_id: int
+    servicio_id: int
+    cliente_nombre: str
+    cliente_telefono: Optional[str] = None
+    cliente_email: Optional[str] = None
+    fecha: date
+    hora: time
+    duracion: Optional[int] = 30
+    estado: Optional[str] = "pendiente"
+    notas: Optional[str] = None
+
 
     @validator('fecha')
     def validar_fecha(cls, v):
@@ -25,18 +31,14 @@ class CitaEntrada(BaseModel):
         except:
             raise ValueError("Formato de hora inválido. Use HH:MM AM/PM (ej. 09:00 AM)")
 
-class CitaRespuesta(CitaEntrada):
+# Modelo para respuesta de citas
+class CitaRespuesta(BaseModel):
     id: int
-    estado: str = Field(
-        default="pendiente",
-        description="Estado de la cita: pendiente|confirmada|cancelada|completada"
-    )
-    fecha_creacion: datetime
-    fecha_actualizacion: datetime
-
-    class Config:
-        json_encoders = {
-            date: lambda v: v.strftime('%Y-%m-%d'),
-            time: lambda v: v.strftime('%H:%M:%S'),
-            datetime: lambda v: v.isoformat()
-        }
+    nombre: str
+    fecha: date
+    hora: time
+    duracion: int
+    estado: str
+    notas: Optional[str]
+    fecha_creacion: str
+    fecha_actualizacion: str

@@ -1,33 +1,85 @@
 <section class="citas">
   <div class="container">
     <h2>Agendar Cita</h2>
-    <form class="formulario-cita">
+    
+    <!-- Mensajes de estado -->
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+      <button (click)="clearMessages()" class="close-btn">×</button>
+    </div>
+    
+    <div *ngIf="successMessage" class="success-message">
+      {{ successMessage }}
+      <button (click)="clearMessages()" class="close-btn">×</button>
+    </div>
+
+    <form [formGroup]="citaForm" (ngSubmit)="agendarCita()" class="formulario-cita">
       <div class="campo">
         <label for="nombre">Nombre</label>
-        <input id="nombre" type="text" placeholder="Tu nombre completo" />
+        <input id="nombre" type="text" formControlName="nombre" placeholder="Tu nombre completo" />
+        <div *ngIf="citaForm.get('nombre')?.invalid && citaForm.get('nombre')?.touched" class="error-message">
+          Nombre es requerido
+        </div>
       </div>
 
       <div class="campo">
         <label for="fecha">Fecha</label>
-        <input id="fecha" type="date" />
+        <input id="fecha" type="date" formControlName="fecha" />
+        <div *ngIf="citaForm.get('fecha')?.invalid && citaForm.get('fecha')?.touched" class="error-message">
+          Fecha es requerida
+        </div>
       </div>
 
       <div class="campo">
         <label for="hora">Hora</label>
-        <input id="hora" type="time" />
+        <input id="hora" type="time" formControlName="hora" />
+        <div *ngIf="citaForm.get('hora')?.invalid && citaForm.get('hora')?.touched" class="error-message">
+          Hora es requerida
+        </div>
       </div>
 
       <div class="campo">
         <label for="servicio">Servicio</label>
-        <select id="servicio">
-          <option disabled selected>Selecciona un servicio</option>
-          <option>Corte de cabello</option>
-          <option>Barba</option>
-          <option>Corte + Barba</option>
+        <select id="servicio" formControlName="servicio">
+          <option disabled [selected]="true">Selecciona un servicio</option>
+          <option *ngFor="let servicio of servicios" [value]="servicio.id">
+            {{ servicio.nombre }}
+          </option>
         </select>
+        <div *ngIf="citaForm.get('servicio')?.invalid && citaForm.get('servicio')?.touched" class="error-message">
+          Servicio es requerido
+        </div>
       </div>
 
-      <button type="submit" class="btn btn-primario">Agendar</button>
+      <div class="campo">
+        <label for="notas">Notas adicionales</label>
+        <textarea id="notas" formControlName="notas" rows="3"></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primario" [disabled]="citaForm.invalid || loading">
+        <span *ngIf="!loading">Agendar</span>
+        <span *ngIf="loading">Procesando...</span>
+      </button>
     </form>
+
+    <div class="lista-citas" *ngIf="citas.length > 0">
+      <h3>Mis Citas</h3>
+      <ul>
+        <li *ngFor="let cita of citas">
+          <div>
+            <strong>{{ getNombreServicio(cita.servicio_id) }}</strong>
+            <p>{{ formatFecha(cita.fecha) }} a las {{ cita.hora }}</p>
+            <p *ngIf="cita.notas">{{ cita.notas }}</p>
+          </div>
+          <button 
+            class="btn-secundario" 
+            (click)="eliminarCita(cita.id)"
+            [disabled]="loading"
+          >
+            Cancelar
+          </button>
+        </li>
+      </ul>
+    </div>
   </div>
 </section>

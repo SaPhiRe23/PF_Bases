@@ -1,6 +1,6 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -23,6 +23,8 @@ export class AuthService {
       this.authState.next(!!token);
     }
   }
+
+  // ------------------------ SESSION ------------------------
 
   storeSession(token: string, role: string) {
     if (this.isBrowser) {
@@ -54,26 +56,14 @@ export class AuthService {
     return null;
   }
 
-  // Usuarios
-  register(data: any) {
-    return this.http.post(`${this.API_URL}/usuarios/`, data);
+  getUserId(): string | null {
+    if (this.isBrowser) {
+      return localStorage.getItem('user_id');
+    }
+    return null;
   }
 
-  // Citas
-  crearCita(data: any) {
-    return this.http.post(`${this.API_URL}/citas/`, data);
-  }
-
-  // En auth.service.ts
-
-  obtenerCitas() {
-    return this.http.get(`${this.API_URL}/citas/`);
-  }
-
-  eliminarCita(id: number) {
-    return this.http.delete(`${this.API_URL}/citas/${id}`);
-  }
-
+  // ------------------------ LOGIN ------------------------
 
   login(email: string, password: string): Observable<any> {
     return new Observable(observer => {
@@ -81,35 +71,61 @@ export class AuthService {
         next: user => {
           const token = 'mock-token';
           this.storeSession(token, user.rol);
-          localStorage.setItem('user_id', user.id);
-
+          localStorage.setItem('user_id', user.id.toString());
           observer.next(user);
         },
         error: err => observer.error(err)
       });
     });
   }
-  // Obtener todos los usuarios
-obtenerUsuarios(): Observable<any[]> {
-  return this.http.get<any[]>(`${this.API_URL}/usuarios/`);
-}
 
-// Crear un nuevo usuario
-crearUsuario(data: any): Observable<any> {
-  return this.http.post(`${this.API_URL}/usuarios/`, data);
-}
+  // ------------------------ USUARIOS ------------------------
 
-// Eliminar usuario (si el backend tiene este endpoint)
-eliminarUsuario(id: number): Observable<any> {
-  return this.http.delete(`${this.API_URL}/usuarios/${id}`);
-}
-getUserId(): string | null {
-  if (this.isBrowser) {
-    return localStorage.getItem('user_id'); // asegúrate de guardarlo en el login
+  obtenerUsuarios(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.API_URL}/usuarios/`);
   }
-  return null;
-}
 
+  crearUsuario(data: any): Observable<any> {
+    return this.http.post(`${this.API_URL}/usuarios/`, data);
+  }
 
+  eliminarUsuario(id: number): Observable<any> {
+    return this.http.delete(`${this.API_URL}/usuarios/${id}`);
+  }
 
+  // ------------------------ CITAS ------------------------
+
+  crearCita(data: any): Observable<any> {
+    return this.http.post(`${this.API_URL}/citas/`, data);
+  }
+
+  obtenerCitas(params?: any): Observable<any[]> {
+    return this.http.get<any[]>(`${this.API_URL}/citas/`, { params });
+  }
+
+  eliminarCita(id: number): Observable<any> {
+    return this.http.delete(`${this.API_URL}/citas/${id}`);
+  }
+
+  actualizarEstadoCita(id: number, estado: string): Observable<any> {
+    return this.http.patch(`${this.API_URL}/citas/${id}/estado?estado=${estado}`, {});
+  }
+
+  // ------------------------ SERVICIOS ------------------------
+
+  obtenerServicios(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.API_URL}/servicios/`);
+  }
+
+  crearServicio(data: any): Observable<any> {
+    return this.http.post(`${this.API_URL}/servicios/`, data);
+  }
+
+  eliminarServicio(id: number): Observable<any> {
+    return this.http.delete(`${this.API_URL}/servicios/${id}`);
+  }
+
+  actualizarServicio(id: number, data: any): Observable<any> {
+    return this.http.patch(`${this.API_URL}/servicios/${id}`, data);
+  }
 }
